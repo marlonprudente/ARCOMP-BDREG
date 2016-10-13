@@ -22,7 +22,7 @@ begin
 		elsif wr_enable='1' then
 			if	rising_edge(clock) then
 				registro <= data_in;
-			end if;
+			end if;			
 		end if;
 	end process;
 
