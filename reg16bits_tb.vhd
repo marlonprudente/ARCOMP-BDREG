@@ -7,20 +7,20 @@ end entity;
 
 architecture a_reg16bits_tb of reg16bits_tb is
 	component reg16bits is
-		port(	clock	: inout unsigned (1 downto 0);
-				reset	: inout unsigned (1 downto 0);
-				wr_enable	: inout unsigned (1 downto 0);
+
+		port(	clock	: inout std_logic;
+				reset	: inout std_logic;
+				wr_enable	: inout std_logic;
 				data_in		: in unsigned (15 downto 0);
-				data_out	: out unsigned (15 downto 0);
+				data_out	: out unsigned (15 downto 0)
 		);
 	end component;
-	
-	signal clk,rst,wr_en:	unsigned(1 downto 0);
+
+	signal clk,rst,wr_en:	std_logic;
 	signal datain,dataout: unsigned(15 downto 0);
 
 	begin
-		uut: reg16bits port map(
-		clock=>clk,
+		uut: reg16bits port map(clock=>clk,
 		reset=>rst,
 		wr_enable=>wr_en,
 		data_in=>datain,
@@ -47,9 +47,9 @@ architecture a_reg16bits_tb of reg16bits_tb is
 	begin
 		wait for 100 ns;
 		wr_en <='0';
-		data_in <= "1111111111111111";
+		datain <= "1111111111111111";
 		wait for 100 ns;
-		data_in <= "1000000000000000";
+		datain <= "1000000000000000";
 	end process;
 
 end architecture;

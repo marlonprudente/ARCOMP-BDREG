@@ -1,0 +1,7 @@
+v 4
+file . "reg16bits_tb.vhd" "f83d9fddc2f6ff279c351bdf8efa83807f097cde" "20161013122548.677":
+  entity reg16bits_tb at 1( 0) + 0 on 15;
+  architecture a_reg16bits_tb of reg16bits_tb at 8( 106) + 0 on 16;
+file . "reg16bits.vhd" "8dc9f1895e94e9ffd3f0e7b2977c40ed1eadaa75" "20161013122542.190":
+  entity reg16bits at 1( 0) + 0 on 13;
+  architecture a_reg16bits of reg16bits at 14( 273) + 0 on 14;

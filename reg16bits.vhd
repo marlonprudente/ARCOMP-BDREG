@@ -1,13 +1,13 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use numeric_std.all;
+use ieee.numeric_std.all;
 
-entity reg16bits
+entity reg16bits is
 	port(	clock		:	in std_logic;
 			reset		:	in std_logic;
-			wr_enable	:	in sdt_logic;
+			wr_enable	:	in std_logic;
 			data_in		:	in unsigned(15 downto 0);
-			data_out	:	out unsigned (15 downto 0);
+			data_out	:	out unsigned (15 downto 0)
 	);
 end entity;
 
