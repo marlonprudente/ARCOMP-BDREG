@@ -1,10 +1,10 @@
 v 4
-file . "reg16bits_tb.vhd" "f83d9fddc2f6ff279c351bdf8efa83807f097cde" "20161013160208.404":
-  entity reg16bits_tb at 1( 0) + 0 on 31;
-  architecture a_reg16bits_tb of reg16bits_tb at 8( 106) + 0 on 32;
-file . "reg16bits.vhd" "8dc9f1895e94e9ffd3f0e7b2977c40ed1eadaa75" "20161013122542.190":
-  entity reg16bits at 1( 0) + 0 on 13;
-  architecture a_reg16bits of reg16bits at 14( 273) + 0 on 14;
-file . "mux16bits_tb.vhd" "9af85a25b2acc3b0554dd66bf8cf0167e9a21ac0" "20161013155835.630":
-  entity mux16bits_tb at 1( 0) + 0 on 29;
-  architecture a_mux16bits_tb of mux16bits_tb at 8( 106) + 0 on 30;
+file . "bancoreg16bits_tb.vhd" "47b982ac45e1c617f6d50e91ee581712634371cf" "20161013160734.477":
+  entity bancoreg16bits_tb at 1( 0) + 0 on 15;
+  architecture a_bancoreg16bits_tb of bancoreg16bits_tb at 8( 111) + 0 on 16;
+file . "mux16bits_tb.vhd" "9af85a25b2acc3b0554dd66bf8cf0167e9a21ac0" "20161013160539.633":
+  entity mux16bits_tb at 1( 0) + 0 on 11;
+  architecture a_mux16bits_tb of mux16bits_tb at 8( 106) + 0 on 12;
+file . "reg16bits_tb.vhd" "f83d9fddc2f6ff279c351bdf8efa83807f097cde" "20161013160629.449":
+  entity reg16bits_tb at 1( 0) + 0 on 13;
+  architecture a_reg16bits_tb of reg16bits_tb at 8( 106) + 0 on 14;

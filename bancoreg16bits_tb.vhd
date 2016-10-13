@@ -29,8 +29,8 @@ architecture a_bancoreg16bits_tb of bancoreg16bits_tb is
 		readreg1=>rreg1,
 		readreg2=>rreg2,
 		wr_data=>datain,
-		readdata1=>dataout;
-		readdata2=>dataout;
+		readdata1=>dataout,
+		readdata2=>dataout,
 		clock=>clk,
 		reset=>rst,
 		wr_en=>wr_en
