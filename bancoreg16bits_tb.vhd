@@ -10,9 +10,9 @@ architecture a_bancoreg16bits_tb of bancoreg16bits_tb is
 
 		port(	readreg1	:	in unsigned(2 downto 0);
 				readreg2	:	in unsigned(2 downto 0);
-				wr_en 		:	in std_logic;
-				clock		:	in std_logic;
-				reset		:	in std_logic;
+				wr_en 	 	:	in std_logic;
+				clk			:	in std_logic;
+				rst			:	in std_logic;
 				wr_data		:	in unsigned(15 downto 0);
 				readdata1	:	out unsigned(15 downto 0);
 				readdata2	:	out unsigned(15 downto 0)
@@ -22,17 +22,17 @@ architecture a_bancoreg16bits_tb of bancoreg16bits_tb is
 
 	signal clk,rst,wr_en:	std_logic;
 	signal rreg1,rreg2 	:	unsigned(2 downto 0);
-	signal datain,dataout: unsigned(15 downto 0);
+	signal datain,dataout1,dataout2: unsigned(15 downto 0);
 
 	begin
 	uut: bancoreg16bits port map(
 		readreg1=>rreg1,
 		readreg2=>rreg2,
 		wr_data=>datain,
-		readdata1=>dataout,
-		readdata2=>dataout,
-		clock=>clk,
-		reset=>rst,
+		readdata1=>dataout1,
+		readdata2=>dataout2,
+		clk=>clk,
+		rst=>rst,
 		wr_en=>wr_en
 		);
 
@@ -41,7 +41,7 @@ architecture a_bancoreg16bits_tb of bancoreg16bits_tb is
 		clk <='0';
 		wait for 50 ns;
 		clk <= '1';
-		wait for 50 ns;
+		wait for 50 ns;	--ficará em loop
 	end process;
 
 	process
@@ -49,32 +49,67 @@ architecture a_bancoreg16bits_tb of bancoreg16bits_tb is
 		rst <= '1';
 		wait for 100 ns;
 		rst <= '0';
-		wait;
+		wait;		--não ficará em loop
 	end process;
 
 	process
 	begin
+		wait for 100 ns;
+		wr_en <='1';
+		rreg1 <= "000";
+		datain <= "1111000011111111";
 		wait for 100 ns;
 		wr_en <='0';
 		datain <= "1111111111111111";
 		wait for 100 ns;
-		datain <= "1000000000000000";
+		wr_en <='1';
+		rreg1 <= "001";
+		datain <= "1111000011111111";
+		wait for 100 ns;
+		wr_en <='0';
+		datain <= "1111111111111111";
+		wait for 100 ns;
+		wr_en <='1';
+		rreg1 <= "010";
+		datain <= "1111000011111111";
+		wait for 100 ns;
+		wr_en <='0';
+		datain <= "1111111111111111";
+		wait for 100 ns;
+		wr_en <='1';
+		rreg1 <= "011";
+		datain <= "1111000011111111";
+		wait;
 	end process;
 
-	process
+		process
 	begin
-	rreg1 <= "001";
-			datain <= "0000000000000001";
-			wait for 50 ns;			
-			wait;
-		end process;
-
-	process
-	begin
-	rreg2 <= "001";
-			datain <= "0000000000000101";
-			wait for 50 ns;			
-			wait;
-		end process;
+		wait for 100 ns;
+		wr_en <='1';
+		rreg2 <= "000";
+		datain <= "1111000011111111";
+		wait for 100 ns;
+		wr_en <='0';
+		datain <= "1111111111111111";
+		wait for 100 ns;
+		wr_en <='1';
+		rreg2 <= "001";
+		datain <= "1111000011111111";
+		wait for 100 ns;
+		wr_en <='0';
+		datain <= "1111111111111111";
+		wait for 100 ns;
+		wr_en <='1';
+		rreg2 <= "010";
+		datain <= "1111000011111111";
+		wait for 100 ns;
+		wr_en <='0';
+		datain <= "1111111111111111";
+		wait for 100 ns;
+		wr_en <='1';
+		rreg2 <= "011";
+		datain <= "1111000011111111";
+		wait;
+	end process;
 
 end architecture;

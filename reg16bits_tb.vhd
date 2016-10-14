@@ -50,6 +50,11 @@ architecture a_reg16bits_tb of reg16bits_tb is
 		datain <= "1111111111111111";
 		wait for 100 ns;
 		datain <= "1000000000000000";
+		wait for 100 ns;
+		wr_en <='1';
+		datain <= "1111111111111111";
+		wait for 100 ns;
+		datain <= "1000000000000000";
 	end process;
 
 end architecture;

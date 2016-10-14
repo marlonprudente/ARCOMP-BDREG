@@ -5,9 +5,9 @@ use ieee.numeric_std.all;
 entity bancoreg16bits is
 	port(	readreg1	:	in unsigned(2 downto 0);
 			readreg2	:	in unsigned(2 downto 0);
-			wr_en 		:	in std_logic;
-			clock		:	in std_logic;
-			reset		:	in std_logic;
+			wr_en		:	in std_logic;
+			clk			:	in std_logic;
+			rst			:	in std_logic;
 			wr_data		:	in unsigned(15 downto 0);
 			readdata1	:	out unsigned(15 downto 0);
 			readdata2	:	out unsigned(15 downto 0)
@@ -20,60 +20,71 @@ architecture a_bancoreg16bits of bancoreg16bits is
 		port(	clock		:	in std_logic;
 				reset		:	in std_logic;
 				wr_enable	:	in std_logic;
-				op			:	in unsigned(1 downto 0);
 				data_in		:	in unsigned(15 downto 0);
 				data_out	:	out unsigned (15 downto 0)
 	);
 	end component;
 
-	component mux16bits is
-		port(	entr0	:	in unsigned(15 downto 0);
-				entr1	:	in unsigned(15 downto 0);
-				entr2	:	in unsigned(15 downto 0);
-				entr3	:	in unsigned(15 downto 0);
-				entr4	:	in unsigned(15 downto 0);
-				entr5	:	in unsigned(15 downto 0);
-				entr6	:	in unsigned(15 downto 0);
-				entr7	:	in unsigned(15 downto 0);
-				op		: 	in unsigned(2 downto 0);
-				saida	:	out unsigned(15 downto 0)
-	);
-	end component;
-
-signal clk,rst : std_logic;
-signal reg0tomux1,reg1tomux1,reg2tomux1,reg3tomux1,reg4tomux1,reg5tomux1,reg6tomux1,reg7tomux1,	:	std_logic;
-signal reg0tomux2,reg1tomux2,reg2tomux2,reg3tomux2,reg4tomux2,reg5tomux2,reg6tomux2,reg7tomux2,	:	std_logic;
-
+--signal clk,rst, wr_enable : std_logic;
+signal wr_en0,wr_en1,wr_en2,wr_en3,wr_en4,wr_en5,wr_en6,wr_en7	:	std_logic;
+signal data_out0,data_out1,data_out2,data_out3,data_out4,data_out5,data_out6,data_out7,data_in	:	unsigned(15 downto 0);
 begin 
-	reg0: reg16bits	port map(clock=>clk,reset=>rst,wr_enable=>wr_en,data_in=> "0",data_out=>"0000000000000000");
-	reg1: reg16bits port map(clock=>clk,reset=>rst,wr_enable=>wr_en,data_in=> data_in,data_out=> reg1tomux);
-	reg2: reg16bits port map(clock=>clk,reset=>rst,wr_enable=>wr_en,data_in=> data_in,data_out=> reg2tomux);
-	reg3: reg16bits port map(clock=>clk,reset=>rst,wr_enable=>wr_en,data_in=> data_in,data_out=> reg3tomux);
-	reg4: reg16bits port map(clock=>clk,reset=>rst,wr_enable=>wr_en,data_in=> data_in,data_out=> reg4tomux);
-	reg5: reg16bits port map(clock=>clk,reset=>rst,wr_enable=>wr_en,data_in=> data_in,data_out=> reg5tomux);
-	reg6: reg16bits port map(clock=>clk,reset=>rst,wr_enable=>wr_en,data_in=> data_in,data_out=> reg6tomux);
-	reg7: reg16bits port map(clock=>clk,reset=>rst,wr_enable=>wr_en,data_in=> data_in,data_out=> reg7tomux);
+	wr_en0<=wr_en when readreg1="000";
+	wr_en1<=wr_en when readreg1="001";
+	wr_en2<=wr_en when readreg1="010";
+	wr_en3<=wr_en when readreg1="011";
+	wr_en4<=wr_en when readreg1="100";
+	wr_en5<=wr_en when readreg1="101";
+	wr_en6<=wr_en when readreg1="110";
+	wr_en7<=wr_en when readreg1="111";
 
-	mux1:	mux16bits port map(entr0=>"0000000000000000",
-		entr1=>reg1tomux1,
-		entr2=>reg2tomux1,
-		entr3=>reg3tomux1,
-		entr4=>reg4tomux1,
-		entr5=>reg5tomux1,
-		entr6=>reg6tomux1,
-		entr7=>reg7tomux1,
-		op=>readreg1,
-		saida=>readdata1);
+	wr_en0<=wr_en when readreg2="000";
+	wr_en1<=wr_en when readreg2="001";
+	wr_en2<=wr_en when readreg2="010";
+	wr_en3<=wr_en when readreg2="011";
+	wr_en4<=wr_en when readreg2="100";
+	wr_en5<=wr_en when readreg2="101";
+	wr_en6<=wr_en when readreg2="110";
+	wr_en7<=wr_en when readreg2="111";
 
-		mux2:	mux16bits port map(entr0=>"0000000000000000",
-		entr1=>reg1tomux2,
-		entr2=>reg2tomux2,
-		entr3=>reg3tomux2,
-		entr4=>reg4tomux2,
-		entr5=>reg5tomux2,
-		entr6=>reg6tomux2,
-		entr7=>reg7tomux2,
-		op=>readreg2,
-		saida=>readdata2);
-	
+	reg0: reg16bits	port map(clock=>clk,reset=>rst,wr_enable=>wr_en0,data_in=> data_in,data_out=>data_out0);
+	reg1: reg16bits port map(clock=>clk,reset=>rst,wr_enable=>wr_en1,data_in=> data_in,data_out=> data_out1);
+	reg2: reg16bits port map(clock=>clk,reset=>rst,wr_enable=>wr_en2,data_in=> data_in,data_out=> data_out2);
+	reg3: reg16bits port map(clock=>clk,reset=>rst,wr_enable=>wr_en3,data_in=> data_in,data_out=> data_out3);
+	reg4: reg16bits port map(clock=>clk,reset=>rst,wr_enable=>wr_en4,data_in=> data_in,data_out=> data_out4);
+	reg5: reg16bits port map(clock=>clk,reset=>rst,wr_enable=>wr_en5,data_in=> data_in,data_out=> data_out5);
+	reg6: reg16bits port map(clock=>clk,reset=>rst,wr_enable=>wr_en6,data_in=> data_in,data_out=> data_out6);
+	reg7: reg16bits port map(clock=>clk,reset=>rst,wr_enable=>wr_en7,data_in=> data_in,data_out=> data_out7);
+
+	data_out0 <= "0000000000000000";
+
+	process(clk)
+	begin
+		if rising_edge(clk) then
+			case readreg1 is
+					when "000" => readdata1 <= data_out0;
+					when "001" => readdata1 <= data_out1;
+					when "010" => readdata1 <= data_out2;
+					when "011" => readdata1 <= data_out3;
+					when "100" => readdata1 <= data_out4;
+					when "101" => readdata1 <= data_out5;
+					when "110" => readdata1 <= data_out6;
+					when "111" => readdata1 <= data_out7;
+					when others => readdata1 <= "0000000000000000";
+			end case;
+
+			case readreg1 is
+					when "000" => readdata2 <= data_out0;
+					when "001" => readdata2 <= data_out1;
+					when "010" => readdata2 <= data_out2;
+					when "011" => readdata2 <= data_out3;
+					when "100" => readdata2 <= data_out4;
+					when "101" => readdata2 <= data_out5;
+					when "110" => readdata2 <= data_out6;
+					when "111" => readdata2 <= data_out7;
+					when others => readdata2 <= "0000000000000000";
+			end case;
+		end if;
+	end process;
+
 end architecture;
